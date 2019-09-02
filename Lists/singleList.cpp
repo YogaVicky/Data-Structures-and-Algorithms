@@ -40,6 +40,9 @@ void remove(int pos){
 	node *thead = head;
 	if(thead == NULL)
 		cout<<"List is empty\n";
+	else if(pos==0){
+		head = head->next;
+	}
 	else{
 		pos = pos -1;
 		while(pos--){
@@ -48,10 +51,22 @@ void remove(int pos){
 		thead->next = (thead->next)->next;
 	}
 }
+void reverse(){
+	node *current , *next , *prev;
+	current = head;
+	prev = NULL;
+	while(current!=NULL){
+		next = current->next;
+		current->next = prev;
+		prev = current;
+		current = next;
+	}
+	head = prev;
+}
 int main(){
 	int data , pos , n , c = 1;
 	while(c){
-		cout<<"Enter your choice\n1.Insert\n2.Delete\n3.PrintList\n";
+		cout<<"Enter your choice\n1.Insert\n2.Delete\n3.PrintList\n4.Reverse\n";
 		cin>>n;
 		switch(n){
 			case 1:
@@ -68,6 +83,9 @@ int main(){
 			break;
 			case 3:
 				printlist();
+			break;
+			case 4:
+				reverse();
 			break;
 		}
 		cout<<"Do u want to continue\n";

@@ -4,14 +4,22 @@ using namespace std;
 struct node{
 	int data;
 	node *next;
+	node *prev;
 };
 node *head = NULL;
 void insert(int pos,int data){
 	node *thead = head;
 	node *temp = (node*)malloc(sizeof(struct node));
 	temp->data = data;
-	if(pos == 0){
+	if(thead == NULL){
+		temp->prev = head;
 		temp->next = head;
+		head = temp;
+	}
+	else if(pos == 0){
+		temp->next = thead;
+		thead->prev = temp;
+		temp->prev = NULL;
 		head = temp;
 	}
 	else{
@@ -19,6 +27,7 @@ void insert(int pos,int data){
 		while(pos--){
 			thead = thead->next;
 		}
+		temp->prev = thead;
 		temp->next = thead->next;
 		thead->next = temp;
 	}
@@ -40,12 +49,22 @@ void remove(int pos){
 	node *thead = head;
 	if(thead == NULL)
 		cout<<"List is empty\n";
+	else if(pos == 0){
+		head = head->next;
+		head->prev = NULL;
+	}
 	else{
 		pos = pos -1;
 		while(pos--){
 			thead = thead->next;
 		}
-		thead->next = (thead->next)->next;
+		if((thead->next)->next!=NULL){
+			((thead->next)->next)->prev = thead;
+			thead->next = (thead->next)->next;
+		}
+		else{
+			thead->next = (thead->next)->next;	
+		}
 	}
 }
 int main(){
