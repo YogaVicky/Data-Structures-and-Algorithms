@@ -32,6 +32,28 @@ bool search(node *root , int data){
 	else 
 		return search(root->right , data);
 }
+int findMin(node *root){
+	node *current = root;
+	if(root == NULL){
+		cout<<"Tree is empty\n";
+		return -1;
+	}
+	while(current->left != NULL){
+		current = current->left;
+	}
+	return current->data;
+}
+int findMax(node *root){
+	node *current = root;
+	if(root == NULL){
+		cout<<"Tree is empty\n";
+		return -1;
+	}
+	while(current->right != NULL){
+		current = current->right;
+	}
+	return current->data;
+}
 int main(){
 	node *root = NULL;
 	root = insert(root,15);
