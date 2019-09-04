@@ -1,5 +1,6 @@
 #include<iostream>
 #include<stdlib.h>
+#include<algorithm>
 using namespace std;
 struct node{
 	int data;
@@ -53,6 +54,54 @@ int findMax(node *root){
 		current = current->right;
 	}
 	return current->data;
+}
+node * findMinAddr(node *root){
+	node *current = root;
+	if(root == NULL){
+		cout<<"Tree is empty\n";
+		return -1;
+	}
+	while(current->left != NULL){
+		current = current->left;
+	}
+	return current;
+}
+int findHeight(node *root){
+	if(root == NULL)
+		return -1;
+	return max(findHeight(root->left) , findHeight(root->right)) + 1;	
+}
+node * deleteBST(node *root , int data){
+	if(root = NULL)
+		return root;
+	else if(data < root->data)
+		root->left = deleteBST(root->left , data);
+	else if(data > root->data)
+		root->right = deleteBST(root->right , data);
+	else{
+		if(root->left == NULL && root->right == NULL){
+			delete root;
+			root = NULL;
+			return root;
+		}
+		else if(root->left == NULL){
+			node *temp = root;
+			root = root->right;
+			delete temp;
+			return root;
+		}
+		else if(root->right == NULL){
+			node *temp = root;
+			root = root->left;
+			delete temp;
+			return root;
+		}
+		else{
+			node *temp = findMinAddr(root->right);
+			root->data = temp->data;
+			root->right = deleteBST(root->right , temp->data);
+		}
+	}
 }
 int main(){
 	node *root = NULL;
