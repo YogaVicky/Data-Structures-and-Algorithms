@@ -28,7 +28,7 @@ bool search(node *root , int data){
 		return false;
 	else if(root->data == data)
 		return true;
-	else if(root->data <= data)
+	else if(root->data < data)
 		return search(root->left , data);
 	else 
 		return search(root->right , data);
