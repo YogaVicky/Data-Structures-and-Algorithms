@@ -7,7 +7,8 @@ int main(){
 	cout<<"Enter the number of rows\n";
 	cin>>n;
 	for(i=0;i<n;i++){
-		a.push_back({});
+		vector<int>b;
+		a.push_back(b);
 		cout<<"Enter the number of elements for row "<<i<<endl;
 		cin>>m;
 		cout<<"Enter the elements\n";

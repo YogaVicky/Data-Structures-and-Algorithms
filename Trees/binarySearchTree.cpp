@@ -6,6 +6,11 @@ struct node{
 	int data;
 	node *left;
 	node *right;	
+};
+void preorder(node *root){
+	cout<<root->data<<" ";
+	preorder(root->left);
+	preorder(root->right);
 }
 node* insert(node *root , int data){
 	node *temp = (node *)malloc(sizeof(node));
@@ -13,7 +18,7 @@ node* insert(node *root , int data){
 	if(root == NULL){
 		root = temp;
 		root->left = NULL;
-		root->left = NULL;
+		root->right = NULL;
 	}
 	else if(data <= root->data){
 		root->left = insert(root->left,data);		
@@ -57,10 +62,6 @@ int findMax(node *root){
 }
 node * findMinAddr(node *root){
 	node *current = root;
-	if(root == NULL){
-		cout<<"Tree is empty\n";
-		return -1;
-	}
 	while(current->left != NULL){
 		current = current->left;
 	}
@@ -72,7 +73,7 @@ int findHeight(node *root){
 	return max(findHeight(root->left) , findHeight(root->right)) + 1;	
 }
 node * deleteBST(node *root , int data){
-	if(root = NULL)
+	if(root == NULL)
 		return root;
 	else if(data < root->data)
 		root->left = deleteBST(root->left , data);
@@ -100,6 +101,7 @@ node * deleteBST(node *root , int data){
 			node *temp = findMinAddr(root->right);
 			root->data = temp->data;
 			root->right = deleteBST(root->right , temp->data);
+			return root;
 		}
 	}
 }
@@ -111,10 +113,11 @@ int main(){
 	root = insert(root,25);
 	root = insert(root,8);
 	root = insert(root,12);
+	preorder(root);
 	int num;
 	cout<<"Enter a number to be searched\n";
 	cin>>num;
-	if(search(root , number) == true)
+	if(search(root , num) == true)
 		cout<<"Found\n";
 	else
 		cout<<"Not Found\n";

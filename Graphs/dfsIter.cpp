@@ -1,46 +1,40 @@
 #include<iostream>
+#include<algorithm>
+#include<stdlib.h>
 using namespace std;
 struct node{
 	int data;
 	node *next;
 };
-node *front = NULL;
-node *rear = NULL;
-void enqueue(int data){
+node *top = NULL;
+void push(int data){
 	node *temp = (node*)malloc(sizeof(struct node));
 	temp->data = data;
-	if(front == NULL){
-		rear = temp;
-		front = temp;
+	if(top == NULL){
+		top = temp;
 	}
 	else{
-		temp->next = NULL;
-		rear->next = temp;
-		rear = temp;
+		temp->next = top;
+		top = temp;
 	}
 }
-int dequeue(){
-	int x = front->data;
-	if(rear == front)
-		rear = front = NULL;
-	else
-		front = front->next;
-	return x;
+int pop(){
+	node *temp = top;
+	top = top->next;
+	return temp->data;
 }
 int visit[100] = {0} , n;
-void bfs(int a[100][100] , int v){
-	cout<<"Inside bfs\n";
+void dfs(int a[][100]  , int v){
 	int u , i = 1;
 	visit[v] = 1;
-	cout<<v<<endl;
-	enqueue(v);
-	while(front!=NULL){
-		u = dequeue();
+	push(v);
+	while(top!=NULL){
+		u = pop();
+		cout<<u<<endl;
 		for(i=1;i<=n;i++){
 			if(visit[i]==0 && a[u][i] == 1){
-				cout<<i<<endl;
 				visit[i] = 1;
-				enqueue(i);
+				push(i);
 			}
 		}
 	}
@@ -59,6 +53,6 @@ int main(){
 			if(ch)
 				g[i][j] = 1;
 		}
-	bfs(g , 1);
+	dfs(g , 1);
 	return 0;
 }

@@ -6,12 +6,11 @@ struct heap{
 	int last;
 };
 heap h;
-h.last = 0;
 void insert(int x){
 	h.last++;
-	h.a[h.last] = x;
 	int t = h.last;
-	while((t/2>=1) && h.a[t]>h.a[t/2]){
+	h.a[t] = x;
+	while((t/2>=1) && h.a[t] < h.a[t/2]){
 		h.a[t] = h.a[t] ^ h.a[t/2];
 		h.a[t/2] = h.a[t] ^ h.a[t/2];
 		h.a[t] = h.a[t] ^ h.a[t/2];
@@ -19,7 +18,22 @@ void insert(int x){
 	}
 }
 int deleteheap(){
-	return 1;
+	int i = 1 , temp = h.a[i] , min;
+	h.a[i] = h.a[h.last];
+	h.last--;
+	while(2*i <= h.last){
+		if(h.a[2*i] < h.a[2*i + 1])
+			min = 2*i;
+		else 
+			min = 2*i + 1;
+		if(h.a[i] > h.a[min]){
+			h.a[i] = h.a[i] ^ h.a[min];
+			h.a[min] = h.a[i] ^ h.a[min];
+			h.a[i] = h.a[i] ^ h.a[min];
+		}
+		i = min;
+	}
+	return temp;
 }
 void traverse(){
 	int i;
@@ -28,6 +42,7 @@ void traverse(){
 	cout<<endl;
 }
 int main(){
+	h.last = 0;
 	int ch , k =1 , x;
 	while(k){
 		cout<<"1.Insert\n2.Delete\n3.Traverse\n";
@@ -42,7 +57,7 @@ int main(){
 				cout<<"The element deleted is "<<deleteheap();
 				break;
 			case 3:
-				cout<<"The heap is\n";
+				cout<<"The heap is ";
 				traverse();
 		}
 		cout<<"Press any number to continue\n";
