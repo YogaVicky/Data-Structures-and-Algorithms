@@ -19,3 +19,7 @@ int main(){
 	}
 	return 0;
 }
+//push_back
+//push_front
+//pop_front
+//pop_back
