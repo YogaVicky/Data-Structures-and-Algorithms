@@ -26,3 +26,4 @@ int main(){
 }
 //std::remove doesnt change the size of the vector
 //std;;remove return an iterator pointing at the element that should have been removed after rearranging
+//for_each(arr1.begin(), arr1.end(), printx2); 

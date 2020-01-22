@@ -31,7 +31,7 @@
     //stable_partition
     //is_sorted
     //is_partitioned
-    //is_heap
+    //is_he
     //is_*_until
 
     //Numeric
